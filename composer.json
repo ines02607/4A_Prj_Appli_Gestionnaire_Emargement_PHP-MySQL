@@ -1,0 +1,6 @@
+{
+    "require": {
+        "setasign/fpdf": "^1.8",
+        "johngrogg/ics-parser": "^3.3"
+    }
+}
