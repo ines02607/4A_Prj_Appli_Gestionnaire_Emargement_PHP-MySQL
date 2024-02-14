@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700;800;900&display=swap');
+
+/* Reset some default browser styles */
+body, h1, h2, p, table, td {
+    margin: 0;
+    padding: 0;
+}
+
+.barremenu{
+    background-color: #00395d; /* Bleu de base */
+    background-image: linear-gradient(to bottom, #175099, #00395d); /* Dégradé de bleu */
+    padding: 10px;
+    padding-left: 20px;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+    background-color: #f2f2f2;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.title {
+    padding-top: 50px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.main {
+    width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #d9d9d9;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    margin-top: 25px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding-top: 10px;
+    font-size: 20px;
+    padding-bottom: 0px;
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+input:focus {
+    background-color: rgb(208, 242, 253); /* Couleur de fond lorsqu'il est en focus */
+    color: black; /* Couleur du texte */
+    border: 1px solid darkblue; /* Bordure */
+}
+
+
+input[type="submit"] {
+    background-color: #4e8af4; /* Bleu de base */
+    background-image: linear-gradient(to bottom, #00395d, #599ef6); /* Dégradé de bleu */
+    border-radius: 20px; /* Arrondi */
+    border: none;
+    color: #fff; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement interne */
+    text-align: center; /* Centrage du texte */
+    text-decoration: none; /* Suppression du soulignement */
+    display: inline-block; /* Pour s'adapter à la largeur du contenu */
+    font-size: 18px; /* Taille du texte */
+    cursor: pointer;
+    font-weight: bold;
+    width: 50%;
+    margin-top: 50px;
+}
+
+input[type="submit"]:hover {
+    background-color: black; /* Bleu de base */
+    background-image: linear-gradient(to bottom, #3d4a5a, #000000);
+    border-radius: 20px; /* Arrondi */
+    border: none;
+    color: #fff; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement interne */
+    text-align: center; /* Centrage du texte */
+    text-decoration: none; /* Suppression du soulignement */
+    display: inline-block; /* Pour s'adapter à la largeur du contenu */
+    font-size: 18px; /* Taille du texte */
+    cursor: pointer;
+    font-weight: bold;
+    width: 50%;
+    margin-top: 50px;
+}
+
+form {
+    text-align: center; /* Centrer le contenu du formulaire */
+}
+
+.errors {
+    color: #d9534f;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.errors ul {
+    list-style-type: none;
+}
+
+.errors li {
+    margin-bottom: 5px;
+}
+
