@@ -20,6 +20,10 @@ $json_file_path = $controllerMain->get_planning_json($subpromotion);
     <script src="lib/fullcalendar-6.1.10/packages/google-calendar/index.global.js"></script>
     <script src="lib/fullcalendar-6.1.10/packages/google-calendar/index.global.min.js"></script>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.js"></script>
+
+    
     <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.js"></script>
     <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.min.js"></script>
     <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.min.js"></script>
@@ -78,6 +82,7 @@ $json_file_path = $controllerMain->get_planning_json($subpromotion);
         <div class="bas_page">
         <form class="formDelete" method="POST" action="main/generate_pdf">
             <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
+            <input type="hidden" id="summaryField" name="summary" value="">
             <button type="submit" name="generation" value="pdf">Générer une feuille d'émargement</button>  
         </form>
         </div>
@@ -91,6 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
+        //plugins: ['dayGrid', 'timeGrid', 'list', 'interaction'],
+        selectable: true,
         locale: 'fr',
         weekends: false,
         headerToolbar: {
@@ -99,6 +106,13 @@ document.addEventListener('DOMContentLoaded', function() {
             right: '' // Retirer tous les éléments à droite
         },
         timeZone: 'Europe/Paris',
+	eventClick: function(info) {
+	    var clickedEvent = info.event;
+	    var eventSummary = clickedEvent.extendedProps.summary; // Récupérer le summary de l'événement cliqué
+	    alert('Cours sélectionné : ' + eventSummary); // Afficher le summary à titre d'exemple
+	    
+	    document.getElementById('summaryField').value = eventSummary;
+	},
         eventRender: function(info) {
             // Définissez une liste de couleurs bleues dans différents tons
             var blueColors = ['#6495ED', '#4169E1', '#0000FF', '#1E90FF', '#00BFFF'];
@@ -124,40 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-  
-        <!--<br>
-        <table id="plannig" border="1">
-            <thead>
-                <tr>
-                    <th>Jour et Date</th>
-                    <th>Heure de début</th>
-                    <th>Heure de fin</th>
-                    <th>Cours</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php 
-                $jours_fr = array(
-                    'Monday' => 'Lundi',
-                    'Tuesday' => 'Mardi',
-                    'Wednesday' => 'Mercredi',
-                    'Thursday' => 'Jeudi',
-                    'Friday' => 'Vendredi',
-                    'Saturday' => 'Samedi',
-                    'Sunday' => 'Dimanche'
-                );
-                
-                foreach ($evenments as $evenment): ?>
-                    <tr class="<?= $jours_fr[date('l', strtotime($evenment['start']))] ?>">
-                    <td><?= $jours_fr[date('l', strtotime($evenment['start']))] . ' ' . date('d/m/Y', strtotime($evenment['start'])) ?></td>
-                        <td><?= date('H:i', strtotime($evenment['start'])) ?></td>
-                        <td><?= date('H:i', strtotime($evenment['end'])) ?></td>
-                        <td><?= $evenment['summary'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>-->
-        <br>
     </div>
 </body>
 </html>

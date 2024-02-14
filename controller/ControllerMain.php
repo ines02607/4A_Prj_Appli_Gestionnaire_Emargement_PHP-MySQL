@@ -10,9 +10,6 @@ require_once 'vendor/johngrogg/ics-parser/src/ICal/Event.php';
 
 use ICal\ICal;
 
-date_default_timezone_set('Europe/Paris');
-setlocale(LC_TIME, 'fr_FR');
-
 class ControllerMain extends Controller {
 
     public $subpromotion;
@@ -82,7 +79,7 @@ class ControllerMain extends Controller {
 
     function calculate_dates() {
         // Récupérer la date actuelle
-         $current_date = new DateTime('now', new DateTimeZone('Europe/Paris'));
+        $current_date = new DateTime();
     
         // Calculer le jour de la semaine (0 pour dimanche, 6 pour samedi)
         $current_day_of_week = $current_date->format('w');
@@ -148,12 +145,8 @@ public function decrypt_datetime($datetime_str) {
     
 function get_planning($subpromotion) {
 
-	date_default_timezone_set('Europe/Paris');
-
         // Calculer les dates firstDate et lastDate
         $dates = $this->calculate_dates();
-        
-        date_default_timezone_set('Europe/Paris');
 
         if($subpromotion == "3A FISA"){
             $url='https://ade-web-consult.univ-amu.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?projectId=8&resources=46050&calType=ical&firstDate='. $dates['firstDate'] . '&lastDate=' . $dates['lastDate'];
@@ -213,8 +206,6 @@ function get_planning($subpromotion) {
         return $evenements;
     }
     
-
-
     public function choose_service(){
         $user = $this->get_user_or_redirect();
 
@@ -242,6 +233,7 @@ function get_planning($subpromotion) {
     
             // Récupérer les données des étudiants
             $students = Student::get_students_of_subpromotion($subpromotion);
+            $summary = isset($_POST['summary']) ? $_POST['summary'] : '';
     
             // Utiliser la bibliothèque FPDF pour créer un nouveau document PDF
             $pdf = new FPDF();
@@ -307,7 +299,8 @@ function get_planning($subpromotion) {
             //Ajouter les lignes supplémentaires en bas du tableau
             $pdf->Ln(5); // Saut de ligne
             $pdf->SetFont('Arial', 'B', 10);
-            $pdf->Cell(0, 10, 'Cours de: ...................................................                                                                         Signature', 0, 1);
+            $pdf->Cell(0, 10, 'Cours de: ' . ($summary != '' ? $summary : '...................................................'), 0, 1);
+
             $pdf->Cell(0, 10, 'Enseignant(e) : ..........................................', 0, 1);
             // Sortie du document PDF dans le navigateur
             ob_end_clean(); 
