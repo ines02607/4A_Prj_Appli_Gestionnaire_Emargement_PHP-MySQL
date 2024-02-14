@@ -5,8 +5,10 @@ require_once 'Configuration.php';
 abstract class Controller {
 
     public function __construct() {
-        session_start();
-    }
+	if (empty(session_id())) {
+	    session_start();
+	}
+}
 
     //connecte l'utilisateur donné et redirige vers la page d'acceuil
     protected function log_user(object $member, string $controller = "", string $action = "index") : void {

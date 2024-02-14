@@ -10,6 +10,9 @@ require_once 'vendor/johngrogg/ics-parser/src/ICal/Event.php';
 
 use ICal\ICal;
 
+date_default_timezone_set('Europe/Paris');
+setlocale(LC_TIME, 'fr_FR');
+
 class ControllerMain extends Controller {
 
     public $subpromotion;
@@ -79,7 +82,7 @@ class ControllerMain extends Controller {
 
     function calculate_dates() {
         // Récupérer la date actuelle
-        $current_date = new DateTime();
+         $current_date = new DateTime('now', new DateTimeZone('Europe/Paris'));
     
         // Calculer le jour de la semaine (0 pour dimanche, 6 pour samedi)
         $current_day_of_week = $current_date->format('w');
@@ -103,12 +106,54 @@ class ControllerMain extends Controller {
         // Retourner les dates calculées
         return array('firstDate' => $firstDate, 'lastDate' => $lastDate);
     }
+    
+public function get_planning_json($subpromotion) {
+    // Utiliser la fonction existante pour obtenir les événements
+    $evenements = $this->get_planning($subpromotion);
+    
+    // Convertir les événements en format JSON
+    $json_events = json_encode($evenements);
+    
+    // Déchiffrer les dates et heures dans les événements
+    $json_events_decrypted = array_map(function($event) {
+        $event['start'] = $this->decrypt_datetime($event['start']);
+        $event['end'] = $this->decrypt_datetime($event['end']);
+        return $event;
+    }, $evenements);
+    
+    // Convertir les événements déchiffrés en format JSON
+    $json_events_decrypted = json_encode($json_events_decrypted);
+    
+    // Générer le nom du fichier JSON spécifique à la promotion
+    $json_file_name = strtolower(str_replace(' ', '_', $subpromotion)) . '_planning.json';
+    
+    $database_folder = 'database/';
+    
+    // Chemin complet vers le fichier JSON dans le dossier "database"
+    $json_file_path = $database_folder . $json_file_name;
+    
+    // Enregistrer le JSON dans le fichier spécifique à la promotion
+    file_put_contents($json_file_path, $json_events_decrypted);
+    
+    // Retourner le chemin du fichier JSON spécifique à la promotion
+    return $json_file_path;
+}
+
+public function decrypt_datetime($datetime_str) {
+    // Convertir la date et l'heure du format "YYYYMMDDTHHMMSSZ" au format "YYYY-MM-DDTHH:MM:SS" avec le fuseau horaire français
+    $datetime = DateTime::createFromFormat('Ymd\THis\Z', $datetime_str, new DateTimeZone('Europe/Paris'));
+    return $datetime->format('Y-m-d\TH:i:s');
+}
 
     
-    function get_planning($subpromotion) {
+function get_planning($subpromotion) {
+
+	date_default_timezone_set('Europe/Paris');
 
         // Calculer les dates firstDate et lastDate
         $dates = $this->calculate_dates();
+        
+        date_default_timezone_set('Europe/Paris');
 
         if($subpromotion == "3A FISA"){
             $url='https://ade-web-consult.univ-amu.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?projectId=8&resources=46050&calType=ical&firstDate='. $dates['firstDate'] . '&lastDate=' . $dates['lastDate'];

@@ -1,12 +1,41 @@
+<?php
+require_once 'controller/ControllerMain.php';
+date_default_timezone_set('Europe/Paris');
+setlocale(LC_TIME, 'fr_FR');
+$controllerMain = new ControllerMain();
+$json_file_path = $controllerMain->get_planning_json($subpromotion);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Plannig de cours</title>
+    <title>Planning de cours</title>
     <base href="<?= $web_root ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/student_planning.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.css" rel="stylesheet">
+
+    <!-- Inclure les fichiers JavaScript de FullCalendar -->
+    <script src="lib/fullcalendar-6.1.10/packages/google-calendar/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/google-calendar/index.global.min.js"></script>
+    
+    <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.min.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.min.js"></script>
+    
+    <script src="lib/fullcalendar-6.1.10/packages/core/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/core/index.global.min.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/core/locales-all.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/core/locales-all.global.min.js"></script>
+    
+    <script src="lib/fullcalendar-6.1.10/packages/daygrid/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/daygrid/index.global.min.js"></script>
+    
+    <script src="lib/fullcalendar-6.1.10/packages/timegrid/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/timegrid/index.global.min.js"></script>
 </head>
+
 <body>
     <div class="header">
             <!-- Menu horizontal avec le logo à gauche -->
@@ -52,8 +81,51 @@
             <button type="submit" name="generation" value="pdf">Générer une feuille d'émargement</button>  
         </form>
         </div>
+        <div id="calendar"></div>
         
-        <br>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.js"></script>
+	<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        locale: 'fr',
+        weekends: false,
+        headerToolbar: {
+            left: '', // Retirer tous les éléments à gauche
+            center: 'title', // Garder seulement le titre au centre
+            right: '' // Retirer tous les éléments à droite
+        },
+        timeZone: 'Europe/Paris',
+        eventRender: function(info) {
+            // Définissez une liste de couleurs bleues dans différents tons
+            var blueColors = ['#6495ED', '#4169E1', '#0000FF', '#1E90FF', '#00BFFF'];
+
+            // Obtenez l'index de l'événement dans la liste des événements
+            var eventIndex = info.event._def.publicId;
+
+            // Choisissez une couleur en fonction de l'index de l'événement
+            var colorIndex = eventIndex % blueColors.length;
+
+            // Appliquez la couleur à la case de l'événement
+            info.el.style.backgroundColor = blueColors[colorIndex];
+        },
+        events: '<?php echo $json_file_path; ?>', // Chemin vers votre fichier JSON contenant les données des cours
+        eventContent: function(arg) {
+            return {
+                html: '<b>' + arg.timeText + '</b><br>' + arg.event.extendedProps.summary
+            };
+        }
+    });
+
+    calendar.render();
+});
+
+</script>
+  
+        <!--<br>
         <table id="plannig" border="1">
             <thead>
                 <tr>
@@ -61,12 +133,10 @@
                     <th>Heure de début</th>
                     <th>Heure de fin</th>
                     <th>Cours</th>
-                    <!-- Ajoutez d'autres colonnes selon vos besoins -->
                 </tr>
             </thead>
             <tbody>
             <?php 
-                // Tableau associatif pour traduire les noms des jours de la semaine en français
                 $jours_fr = array(
                     'Monday' => 'Lundi',
                     'Tuesday' => 'Mardi',
@@ -77,8 +147,6 @@
                     'Sunday' => 'Dimanche'
                 );
                 
-                
-
                 foreach ($evenments as $evenment): ?>
                     <tr class="<?= $jours_fr[date('l', strtotime($evenment['start']))] ?>">
                     <td><?= $jours_fr[date('l', strtotime($evenment['start']))] . ' ' . date('d/m/Y', strtotime($evenment['start'])) ?></td>
@@ -88,7 +156,7 @@
                     </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+        </table>-->
         <br>
     </div>
 </body>

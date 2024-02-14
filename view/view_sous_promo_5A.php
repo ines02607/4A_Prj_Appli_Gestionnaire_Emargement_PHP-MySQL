@@ -42,8 +42,8 @@
         <p>Veuillez choisir une sous promotion :</p>
     
     <!-- Assuming your form should be submitted to the "index.php" file -->
-        <button type="submit" name="subpromotion" value="5A INSI">5A_INSI</button>
-        <button type="submit" name="subpromotion" value="5A REVA">5A_REVA</button>
+        <button type="submit" name="subpromotion" value="5A INSI">5A INSI</button>
+        <button type="submit" name="subpromotion" value="5A REVA">5A REVA</button>
     </form>
 </div>
 
