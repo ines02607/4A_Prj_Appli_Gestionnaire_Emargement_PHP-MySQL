@@ -1,7 +1,5 @@
 <?php
 require_once 'controller/ControllerMain.php';
-date_default_timezone_set('Europe/Paris');
-setlocale(LC_TIME, 'fr_FR');
 $controllerMain = new ControllerMain();
 $json_file_path = $controllerMain->get_planning_json($subpromotion);
 ?>
