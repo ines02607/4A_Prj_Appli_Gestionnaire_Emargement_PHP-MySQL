@@ -358,88 +358,100 @@ pre code {
 </div>
 
 
-<div id="application-de-gestionnaire-démargement" class="section level1">
-<h1><strong>Application de Gestionnaire d’émargement</strong></h1>
-<p><br></p>
-<div id="réalisé-par-kamilia-chaker-yanis-kraimi-inès-mazouz-étudiants-en-4a-à-polytech-marseille" class="section level5">
-<h5><strong>Réalisé par Kamilia CHAKER, Yanis KRAIMI, Inès MAZOUZ,
-étudiants en 4A à Polytech Marseille</strong></h5>
-<p><br></p>
+<div id="gestionnaire-démargement" class="section level1">
+<h1>GESTIONNAIRE D’ÉMARGEMENT</h1>
+<div id="description" class="section level2">
+<h2>DESCRIPTION</h2>
+<p>Le Gestionnaire d’émargement est une application web conçue pour
+faciliter la gestion des feuilles d’émargement au sein du département
+informatique. Cette application permet à la secrétaire du département de
+générer des feuilles d’émargement préremplies à partir des listes
+d’étudiants renseignées dans la base de données de l’application, ainsi
+que de l’emploi du temps récupéré dynamiquement du service ADE de
+l’ENT.</p>
 </div>
-<div id="présentation-du-projet" class="section level3">
-<h3><strong>Présentation du projet</strong></h3>
-<p>Ce projet consiste en la création d’une application Web de gestion de
-l’émargement des étudiants du département Informatique aboutissant à la
-génération d’une feuille d’émargement au format PDF. Les fonctionnalités
-attendues sont : <br> <br> ➔ la récupération du planning automatisée à
-partir du logiciel d’emploi du temps ADE <br> ➔ le stockage et la
-récupération du nom des élèves et de leur promotion à partir d’une BDD
-<br> ➔ la génération d’une feuille d’émargement au format PDF préremplie
-pour signature <br></p>
-<p><br></p>
+<div id="fonctions-principales" class="section level2">
+<h2>FONCTIONS PRINCIPALES</h2>
+<ul>
+<li><strong>GÉNÉRATION DE FEUILLES D’ÉMARGEMENT PRÉREMPLIES :</strong>
+La secrétaire peut générer des feuilles d’émargement en utilisant les
+listes d’étudiants disponibles dans la base de données de l’application
+et l’emploi du temps récupéré dynamiquement.</li>
+</ul>
 </div>
-<div id="lancement-de-lapplication" class="section level3">
-<h3><strong>Lancement de l’application</strong></h3>
-<p>Pour développer ce projet, nous avons utilisé l’outil XAMPP / LAMPP
-pour le lancement simultané de Apache2 et MySQL. Voici les étapes à
-suivre dans l’attente d’un déploiement sur le serveur du département
-:</p>
-<p><br></p>
-<div id="etape-1-préparation-de-lenvironnement-dans-lattente-dun-déploiement" class="section level5">
-<h5><strong>Etape 1 : Préparation de l’environnement (dans l’attente
-d’un déploiement)</strong></h5>
+<div id="fonctions-secondaires" class="section level2">
+<h2>FONCTIONS SECONDAIRES</h2>
+<ul>
+<li><strong>GESTION DU PROFIL :</strong> La secrétaire peut gérer son
+profil, notamment en modifiant son mot de passe.</li>
+<li><strong>GESTION DES ÉTUDIANTS :</strong> La secrétaire peut ajouter,
+supprimer ou mettre à jour le profil d’un étudiant.</li>
+</ul>
+</div>
+<div id="technologies-utilisées" class="section level2">
+<h2>TECHNOLOGIES UTILISÉES</h2>
+<ul>
+<li><strong>BACKEND :</strong> PHP</li>
+<li><strong>FRONTEND :</strong> HTML, CSS</li>
+</ul>
+</div>
+<div id="prérequis" class="section level2">
+<h2>PRÉREQUIS</h2>
+<p>Avant de lancer l’application, assurez-vous d’avoir installé XAMPP
+sur votre système. XAMPP est un ensemble de logiciels gratuits
+permettant de mettre en place un serveur web local.</p>
+</div>
+<div id="lancement-de-lapplication" class="section level2">
+<h2>LANCEMENT DE L’APPLICATION</h2>
 <ol style="list-style-type: decimal">
-<li>Téléchargez XAMPP / LAMPP sur <a href="https://www.apachefriends.org/download.html" class="uri">https://www.apachefriends.org/download.html</a></li>
-<li>Déposez le projet dans “htdocs” du dossier téléchargé</li>
-</ol>
-<p><br></p>
-</div>
-<div id="etape-2-lancement-des-serveurs" class="section level5">
-<h5><strong>Etape 2 : Lancement des serveurs</strong></h5>
-<ol style="list-style-type: decimal">
-<li>Ouvrez un terminal et entrez les commandes suivantes pour éviter
-tout conflit entre XAMPP et des serveurs préinstallés sur votre machine
-: <br></li>
-</ol>
-<pre class="bash"><code>$ sudo systemctl stop apache2
-$ sudo systemctl stop mysql</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Lancez XAMPP avec la commande correspondante à votre SE : <br></li>
+<li><p>Clonez ce dépôt Git dans le dossier <code>htdocs</code> de votre
+installation XAMPP. Le dossier devrait être nommé
+<code>GestionnaireEmargement</code>.</p></li>
+<li><p>Démarrez les serveurs Apache et MySQL via XAMPP :</p></li>
 </ol>
 <ul>
-<li>Linux :</li>
+<li>Sous Windows, via le panneau de contrôle XAMPP</li>
+<li>Sous Linux :</li>
 </ul>
 <pre class="bash"><code>$ sudo /opt/lampp/lampp start</code></pre>
 <ul>
-<li>MacOS</li>
+<li>Sous MacOS</li>
 </ul>
 <pre class="bash"><code>sudo /Applications/XAMPP/xamppfiles/xampp start</code></pre>
+<p>Pour éviter tout conflit entre XAMPP et des serveurs préinstallés, il
+est conseillé d’effectuer les commandes suivantes au préalable :</p>
+<pre class="bash"><code>$ sudo systemctl stop apache2
+$ sudo systemctl stop mysql</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Configurez la BDD : <br> → Entrez
+<code>http://localhost/phpmyadmin</code> dans votre navigateur<br> →
+“New” &gt; Database : nommez la nouvelle base “gestionnaireemargement” →
+“Go”<br> → cliquez sur “gestionnaireemargement” à gauche<br> → cliquez
+sur “SQL” <br> → copiez le contenu du fichier <code>database</code> &gt;
+<code>gestionnaireemargement.sql</code> du projet</p></li>
+<li><p>Ouvrez un navigateur web et accédez à l’URL suivante :
+<code>http://localhost/GestionnaireEmargement</code>.</p></li>
+<li><p>Vous devriez être redirigé vers la page d’accueil de
+l’application. Connectez-vous en utilisant :</p></li>
+</ol>
 <ul>
-<li>Windows :</li>
+<li>L’identifiant : MR001INFO</li>
+<li>Le mot de passe : MR123456! (La secrétaire devra le modifier lors de
+sa première utilisation)</li>
 </ul>
-<pre class="bash"><code>C: \xampp\xampp_start.exe</code></pre>
-<p><br></p>
 </div>
-<div id="etape-3-configuration-de-la-bdd" class="section level5">
-<h5><strong>Etape 3 : Configuration de la BDD</strong></h5>
-<ol style="list-style-type: decimal">
-<li>Entrez “localhost/phpmyadmin” dans votre navigateur</li>
-<li>“New” &gt; Database : nommez la nouvelle base
-“gestionnaireemargement” → “Go”</li>
-<li>Cliquez sur “gestionnaireemargement” à gauche → cliquez sur “SQL” →
-ctrl C + ctrl V du contenu du fichier
-database&gt;gestionnaireemargement.sql du projet</li>
-</ol>
-<p><br></p>
+<div id="auteur" class="section level2">
+<h2>AUTEUR</h2>
+<p>Kamilia CHAKER Inès MAZOUZ Yanis KRAIMI</p>
 </div>
-<div id="etape-4-finalisation" class="section level5">
-<h5><strong>Etape 4 : Finalisation</strong></h5>
-<ol style="list-style-type: decimal">
-<li>Entrez “localhost/gestionnaireemargement” dans votre navigateur
-<br></li>
-</ol>
-<p><strong>Bienvenue sur notre application gestionnaire d’émargement
-!</strong></p>
+<div id="licence" class="section level2">
+<h2>LICENCE</h2>
+<p>Ce projet est sous licence <a href="https://opensource.org/licenses/MIT">MIT</a>.</p>
+<div id="notes" class="section level3">
+<h3>NOTES</h3>
+<p>Suivant le système d’exploitation, le chemin vers MySQL diffère. Il
+faut donc sélectionner le bon chemin dans <code>dev.ini</code> du
+dossier <code>config</code></p>
 </div>
 </div>
 </div>

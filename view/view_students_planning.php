@@ -97,7 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
         //plugins: ['dayGrid', 'timeGrid', 'list', 'interaction'],
         selectable: true,
         locale: 'fr',
+        slotMinTime: '07:00:00', // Début de la plage horaire
+        slotMaxTime: '20:00:00', // Fin de la plage horaire
         weekends: false,
+        slotEventOverlap: false,
+        eventDisplay: 'block',
         headerToolbar: {
             left: '', // Retirer tous les éléments à gauche
             center: 'title', // Garder seulement le titre au centre
@@ -111,6 +115,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	    
 	    document.getElementById('summaryField').value = eventSummary;
 	},
+
+	eventContent: function(arg) {
+		var eventText = arg.event.title;
+		var availableWidth = arg.view.rect.right - arg.view.rect.left - 10; // Réduire la largeur disponible
+		var content = '';
+
+		// Réduire la taille du texte si nécessaire pour tenir dans la case de l'événement
+		while (arg.jsEvent.target.offsetWidth < availableWidth && eventText.length > 0) {
+		    content += eventText.charAt(0);
+		    eventText = eventText.substring(1);
+		    arg.el.innerHTML = content + '...'; // Ajouter "..." si le texte est coupé
+		}
+
+        return { html: arg.el.innerHTML };
+    	},
+	
         eventRender: function(info) {
             // Définissez une liste de couleurs bleues dans différents tons
             var blueColors = ['#6495ED', '#4169E1', '#0000FF', '#1E90FF', '#00BFFF'];

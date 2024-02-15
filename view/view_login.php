@@ -17,12 +17,12 @@
             <form id="LoginForm" action="main/login" method="post">
                 <table>
                     <tr>
-                        <td>Identifiant</td>
+                        <td>Identifiant :</td>
                         <td><input id="Identifiant" name="Identifiant" type="text" size="25" value="<?= $Identifiant ?>"></td>
                     </tr>
                     
                     <tr>
-                        <td>Mot de passe</td>
+                        <td>Mot de passe :</td>
                         <td><input id="Mot_de_passe" name="Mot_de_passe" type="password" size="16" value="<?= $Mot_de_passe ?>"></td>
                     </tr>
                     
