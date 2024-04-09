@@ -21,6 +21,88 @@ body {
   
 }
 
+.title {
+    padding-top: 50px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+h2{
+text-align: center;
+}
+
+table{
+margin: auto;
+}
+
+.logo{
+width: 40%;
+}
+
+#pages{
+  align-items: right;
+  display: flex;
+  width: 60%;
+  text-align: center;
+}
+
+#pages button{
+  width:100%;
+}
+
+#profil{
+  margin-right: 0px;
+}
+
+.form_label {
+	display: inline-block;
+	width: 40%; /* Ajustez la largeur selon vos besoins */
+	margin-bottom: 10px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.form_input{
+	display: inline-block;
+	width: 40%; /* Ajustez la largeur selon vos besoins */
+	padding: 8px;
+	margin-bottom: 20px;
+	border: 2px solid #063f6d; /* Couleur bleue pour la bordure */
+	border-radius: 10px; /* Bords arrondis */
+	box-sizing: border-box;
+	cursor: not-allowed;
+	background-color:#D3D3D3;
+}
+
+.form_input_add{
+	display: inline-block;
+	width: 40%; /* Ajustez la largeur selon vos besoins */
+	padding: 8px;
+	margin-bottom: 20px;
+	border: 2px solid #063f6d; /* Couleur bleue pour la bordure */
+	border-radius: 10px; /* Bords arrondis */
+	box-sizing: border-box;
+	cursor: not-allowed;
+	background-color:white;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding-top: 10px;
+    font-size: 20px;
+    padding-bottom: 0px;
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: left;
+}
+
 .menu {
   display: flex;
   align-items: center;
@@ -49,11 +131,14 @@ ul li a {
 
 .main {
   width: 50%;
-  margin: 100px auto;
-  padding: 20px;
-  background-color: #d9d9d9;
-  border-radius: 8px;
+  margin: 50px auto;
+  padding: 10px;
+  padding-top : 30px;
+  /*background-color: #d9d9d9;*/
+  background-color:white;
+  border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align:left;
 }
 
 p{
@@ -88,51 +173,115 @@ form {
 
 }
 
-button {
-  
-  background-color: #00395d; 
-  background-image: linear-gradient(to bottom, #175099, #00395d); 
-  color: white;
-  padding: 10px 20px;
-  border:none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: bold;
-  font-size: 16px;
-  
+.main button {
+    background-color: #4e8af4; /* Bleu de base */
+    font-family: 'Jost', sans-serif;
+    background-image: linear-gradient(to bottom, #00395d, #599ef6); /* Dégradé de bleu */
+    border-radius: 20px; /* Arrondi */
+    border: none;
+    color: #fff; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement interne */
+    text-align: center; /* Centrage du texte */
+    text-decoration: none; /* Suppression du soulignement */
+    display: inline-block; /* Pour s'adapter à la largeur du contenu */
+    font-size: 18px; /* Taille du texte */
+    cursor: pointer;
+    font-weight: bold;
+    width: 35%;
+    margin-top: 0px;
+    margin-bottom:30px;
 }
 
-button:hover {
-  color: #4e8af4; /* Bleu de base */
+.main button:hover {
+    background-color: black; /* Bleu de base */
+    font-family: 'Jost', sans-serif;
+    background-image: linear-gradient(to bottom, #3d4a5a, #000000);
+    border-radius: 20px; /* Arrondi */
+    border: none;
+    color: #fff; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement interne */
+    text-align: center; /* Centrage du texte */
+    text-decoration: none; /* Suppression du soulignement */
+    display: inline-block; /* Pour s'adapter à la largeur du contenu */
+    font-size: 18px; /* Taille du texte */
+    cursor: pointer;
+    font-weight: bold;
+    width: 35%;
+    margin-top: 0px;
 }
 
-/* Style spécifique pour les boutons dans le formulaire */
-form button {
-  margin : 20px auto;
-  display: block;
-  background-color: #4e8af4; /* Bleu de base */
-  background-image: linear-gradient(to bottom, #00395d, #599ef6); /* Dégradé de bleu */
-  border-radius: 20px; /* Arrondi */
-  color: white;
-  width: 70%;
-  font-family: 'Jost', sans-serif;
-  font-weight: bolder;
-  font-size: 18px;
-  padding:15px;
+
+.barre_menu_boutons button {
+    padding-top:15px;
+    font-family: 'Jost', sans-serif;
+    margin-right: 150px;
+    margin-bottom:20px;
+    white-space: nowrap;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bolder;
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
 }
 
-form button:hover{
-  margin : 20px auto;
-  display: block;
-  background-color: black; /* Bleu de base */
-  background-image: linear-gradient(to bottom, #3d4a5a, #000000);
-  border-radius: 20px; /* Arrondi */
-  width: 50%;
-  font-family: 'Jost', sans-serif;
-  font-weight: bolder;
-  font-size: 18px;
+.barre_menu_boutons button:hover {
+    padding-top:15px;
+    font-family: 'Jost', sans-serif;
+    margin-right: 150px;
+    margin-bottom:20px;
+    white-space: nowrap;
+    background-color: transparent;
+    color: #cfe0fc;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bolder;
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+}
 
+.barre_menu_logo button {
+    padding-top:10px;
+    font-family: 'Jost', sans-serif;
+    margin-right: 150px;
+    margin-bottom:0;
+    white-space: nowrap;
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bolder;
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+}
+
+.barre_menu_logo button:hover {
+    padding-top:10px;
+    font-family: 'Jost', sans-serif;
+    margin-right: 150px;
+    margin-bottom: 0px;
+    white-space: nowrap;
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bolder;
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+}
+
+.barre_menu {
+  margin-left: auto;
+  margin-right: 350px;
 }
 
 /* Profil Form Styles */
@@ -158,6 +307,7 @@ form button:hover{
   border: 2px solid #063f6d; /* Couleur bleue pour la bordure */
   border-radius: 10px; /* Bords arrondis */
   box-sizing: border-box;
+  background-color:#D3D3D3;
 }
 
 .profile-form input[type="text"]:read-only {
@@ -167,4 +317,35 @@ form button:hover{
 
 .error {
   color: red;
+}
+
+#input_amdp, #input_nmdp, #input_cmdp{
+	display: inline-block;
+	width: 40%; /* Ajustez la largeur selon vos besoins */
+	padding: 8px;
+	margin-bottom: 20px;
+	border: 2px solid #063f6d; /* Couleur bleue pour la bordure */
+	border-radius: 10px; /* Bords arrondis */
+	box-sizing: border-box;
+}
+
+#form_label_textarea{
+	display: inline-block;
+	width: 30%; /* Ajustez la largeur selon vos besoins */
+	margin-bottom: 10px;
+	margin-top: 0px;
+	font-weight: bold;
+	text-align: left;
+}
+
+#form_input_textarea{
+	display: inline-block;
+	width: 40%; /* Ajustez la largeur selon vos besoins */
+	padding: 8px;
+	margin-bottom: 20px;
+	border: 2px solid #063f6d; /* Couleur bleue pour la bordure */
+	border-radius: 10px; /* Bords arrondis */
+	box-sizing: border-box;
+	font-size:16px;
+	font-family: 'Jost', sans-serif;
 }

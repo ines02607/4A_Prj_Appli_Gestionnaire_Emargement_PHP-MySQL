@@ -1,126 +1,161 @@
+<?php
+require_once 'controller/ControllerMain.php';
+$controllerMain = new ControllerMain();
+$json_file_path = $controllerMain->get_planning_json($subpromotion);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Plannig de cours</title>
+    <title>Planning de cours</title>
     <base href="<?= $web_root ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/home.css" rel="stylesheet" type="text/css"/>
-    <style>
-        .Lundi { background-color: #ffcccc; } /* Lundi */
-        .Mardi { background-color: #ccffcc; } /* Mardi */
-        .Mercredi { background-color: #ccccff; } /* Mercredi */
-        .Jeudi { background-color: #ffffcc; } /* Jeudi */
-        .Vendredi { background-color: #ffccff; } /* Vendredi */
-        .Samedi { background-color: #ccffff; } /* Samedi */
-        .Dimanche { background-color: #f0f0f0; } /* Dimanche */
-        
-        h2{
-            text-align: center;
-        }
-        table{
-            margin: auto;
-        }
-        .logo{
-            width: 40%;
-        }
-        #pages{
-            align-items: right;
-            display: flex;
-            width: 60%;
-            text-align: center;
-        }
-        #pages button{
-            width:100%;
-        }
-        #profil{
-            margin-right: 0px;
-        }
-    </style>
+    <link href="css/student_planning.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.css" rel="stylesheet">
 
+    <!-- Inclure les fichiers JavaScript de FullCalendar -->
+    <script src="lib/fullcalendar-6.1.10/packages/google-calendar/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/google-calendar/index.global.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.js"></script>
+
+    
+    <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.min.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/icalendar/index.global.min.js"></script>
+    
+    <script src="lib/fullcalendar-6.1.10/packages/core/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/core/index.global.min.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/core/locales-all.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/core/locales-all.global.min.js"></script>
+    
+    <script src="lib/fullcalendar-6.1.10/packages/daygrid/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/daygrid/index.global.min.js"></script>
+    
+    <script src="lib/fullcalendar-6.1.10/packages/timegrid/index.global.js"></script>
+    <script src="lib/fullcalendar-6.1.10/packages/timegrid/index.global.min.js"></script>
 </head>
+
 <body>
     <div class="header">
             <!-- Menu horizontal avec le logo à gauche -->
             <div class="menu">
                 <!-- Chemin relatif vers le dossier "ressources/images" -->
                 <div class="logo"><img src="ressources\images\logo_polytech_3.png"></div>
+		<div class="barre_menu">
                 <ul id="pages">
                     <li>
-                        <form action="main/go_home" method="post">  
-                            <button type="submit" name="accueil">Accueil</button>
+                        <form class="barre_menu_boutons" action="main/go_home" method="post">  
+                            <button type="submit" name="accueil">ACCUEIL</button>
                         </form>
                     </li>
                     <li>
-                        <form action="main/go_sous_promotion" method="post">
+                        <form class="barre_menu_boutons" action="main/go_sous_promotion" method="post">
                             <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
-                            <button type="submit"name="promotions">Sous promotions</button>
+                            <button type="submit"name="promotions">SOUS-PROMOTIONS</button>
                         </form>
                     </li>
                     <li>
-                        <form action="main/go_services" method="post">
+                        <form class="barre_menu_boutons" action="main/go_services" method="post">
                             <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
-                            <button type="submit" name="services">Services</button>
+                            <button type="submit" name="services">SERVICES</button>
                         </form>
-                    </li> 
-                    <li>
-                        <form action="main/go_planning" method="post">  
-                            <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
-                            <input type="hidden" name="evenments" value="<?= $evenments ?>">
-                            <button type="submit" name="planning">Plannig de cours</button>
-                        </form>
-                        </li> 
+                    </li>    
                     <li>
                         <form action="main/actions_initiales" method="post">
-                            <button id="profil" type="submit" name="initiales"> <!-- Ajout du name="initiales" --><?= strtoupper(substr($user->Nom_secretaire, 0, 1) . substr($user->Prenom_secretaire, 0, 1)) ?></button>
+                            <button id="profil" type="submit" name="initiales"><img src="ressources\images\icone_compte.png">
+                            <!-- Ajout du name="initiales" <?= strtoupper(substr($user->Nom_secretaire, 0, 1) . substr($user->Prenom_secretaire, 0, 1)) ?>-->
+                            </button>
                         </form>
-                    </li>
+                    </li>   
                 </ul>
+                </div>
             </div>
     </div>
 
+    <div class="title">Planning de cours de la promotion <?= $subpromotion ?></div>
     <div class="main">
-        <h2>Planning de cours de la promotion <?= $subpromotion ?></h2>
-        <br>
-        
-        <table id="plannig" border="1">
-            <thead>
-                <tr>
-                    <th>Jour et Date</th>
-                    <th>Heure de début</th>
-                    <th>Heure de fin</th>
-                    <th>Cours</th>
-                    <!-- Ajoutez d'autres colonnes selon vos besoins -->
-                </tr>
-            </thead>
-            <tbody>
-            <?php 
-                // Tableau associatif pour traduire les noms des jours de la semaine en français
-                $jours_fr = array(
-                    'Monday' => 'Lundi',
-                    'Tuesday' => 'Mardi',
-                    'Wednesday' => 'Mercredi',
-                    'Thursday' => 'Jeudi',
-                    'Friday' => 'Vendredi',
-                    'Saturday' => 'Samedi',
-                    'Sunday' => 'Dimanche'
-                );
-
-                foreach ($evenments as $evenment): ?>
-                    <tr class="<?= $jours_fr[date('l', strtotime($evenment['start']))] ?>">
-                    <td><?= $jours_fr[date('l', strtotime($evenment['start']))] . ' ' . date('d/m/Y', strtotime($evenment['start'])) ?></td>
-                        <td><?= date('H:i', strtotime($evenment['start'])) ?></td>
-                        <td><?= date('H:i', strtotime($evenment['end'])) ?></td>
-                        <td><?= $evenment['summary'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <br>
+        <div class="bas_page">
         <form class="formDelete" method="POST" action="main/generate_pdf">
             <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
+            <input type="hidden" id="summaryField" name="summary" value="">
             <button type="submit" name="generation" value="pdf">Générer une feuille d'émargement</button>  
         </form>
+        </div>
+        <div id="calendar"></div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.js"></script>
+	<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        //plugins: ['dayGrid', 'timeGrid', 'list', 'interaction'],
+        selectable: true,
+        locale: 'fr',
+        slotMinTime: '07:00:00', // Début de la plage horaire
+        slotMaxTime: '20:00:00', // Fin de la plage horaire
+        weekends: false,
+        slotEventOverlap: false,
+        eventDisplay: 'block',
+        headerToolbar: {
+            left: '', // Retirer tous les éléments à gauche
+            center: 'title', // Garder seulement le titre au centre
+            right: '' // Retirer tous les éléments à droite
+        },
+        timeZone: 'Europe/Paris',
+	eventClick: function(info) {
+	    var clickedEvent = info.event;
+	    var eventSummary = clickedEvent.extendedProps.summary; // Récupérer le summary de l'événement cliqué
+	    alert('Cours sélectionné : ' + eventSummary); // Afficher le summary à titre d'exemple
+	    
+	    document.getElementById('summaryField').value = eventSummary;
+	},
+
+	eventContent: function(arg) {
+		var eventText = arg.event.title;
+		var availableWidth = arg.view.rect.right - arg.view.rect.left - 10; // Réduire la largeur disponible
+		var content = '';
+
+		// Réduire la taille du texte si nécessaire pour tenir dans la case de l'événement
+		while (arg.jsEvent.target.offsetWidth < availableWidth && eventText.length > 0) {
+		    content += eventText.charAt(0);
+		    eventText = eventText.substring(1);
+		    arg.el.innerHTML = content + '...'; // Ajouter "..." si le texte est coupé
+		}
+
+        return { html: arg.el.innerHTML };
+    	},
+	
+        eventRender: function(info) {
+            // Définissez une liste de couleurs bleues dans différents tons
+            var blueColors = ['#6495ED', '#4169E1', '#0000FF', '#1E90FF', '#00BFFF'];
+
+            // Obtenez l'index de l'événement dans la liste des événements
+            var eventIndex = info.event._def.publicId;
+
+            // Choisissez une couleur en fonction de l'index de l'événement
+            var colorIndex = eventIndex % blueColors.length;
+
+            // Appliquez la couleur à la case de l'événement
+            info.el.style.backgroundColor = blueColors[colorIndex];
+        },
+        events: '<?php echo $json_file_path; ?>', // Chemin vers votre fichier JSON contenant les données des cours
+        eventContent: function(arg) {
+            return {
+                html: '<b>' + arg.timeText + '</b><br>' + arg.event.extendedProps.summary
+            };
+        }
+    });
+
+    calendar.render();
+});
+
+</script>
     </div>
 </body>
 </html>

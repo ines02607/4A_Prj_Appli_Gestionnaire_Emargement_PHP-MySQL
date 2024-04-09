@@ -39,9 +39,70 @@ table{
   width:100%;
 }
 
-#profil{
-  margin-right: 0px;
+.profil button{
+	padding:auto;
+	white-space: nowrap;
+	background-color: transparent;
+	color: white;
+	border:none;
+	border-radius: 50px;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 16px;
 }
+
+.profil button:hover{
+
+	padding:auto;
+	white-space: nowrap;
+	background-color: transparent;
+	color: white;
+	border:none;
+	border-radius: 50px;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 16px;
+	width:100%
+}
+
+.barre_menu_boutons button {
+    padding-top:0px;
+    font-family: 'Jost', sans-serif;
+    margin-right: 150px;
+    margin-top : 0px;
+    margin-bottom:20px;
+    white-space: nowrap;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bolder;
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+}
+
+.barre_menu_boutons button:hover {
+    padding-top:0px;
+    font-family: 'Jost', sans-serif;
+    margin-right: 150px;
+    margin-top : 0px;
+    margin-bottom:20px;
+    white-space: nowrap;
+    background-color: transparent;
+    color: #cfe0fc;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bolder;
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+}
+
 
 .header {
   background-color: #00395d; /* Bleu de base */
@@ -59,7 +120,8 @@ table{
 }
 
 .barre_menu {
-    margin-left: auto;
+  margin-left: auto;
+  margin-right: 250px;
 }
 
 }
@@ -93,6 +155,8 @@ ul li a {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
 }
 
+
+
 #main {
   width: 70%;
   margin: 50px auto;
@@ -104,7 +168,7 @@ ul li a {
 
 p{
   padding: 10px;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   color: #333;
   text-align: center;
@@ -117,9 +181,8 @@ p{
   color: #333;
   text-align: center;
   margin-top: 20px;
-  white-space: nowrap; /* Ajoutez cette ligne */
+  white-space: nowrap;
 }
-
 
 #Nom_secretaire{
   color: #063f6d;
@@ -129,31 +192,16 @@ form {
     margin-top: 20px;
 }
 
-button {
-    background-color: #00395d; /* Bleu de base */
-    background-image: linear-gradient(to bottom, #175099, #00395d); /* Dégradé de bleu */
-    color: white;
-    padding: 10px 20px;
-    border:none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-button:hover {
-    color: #4e8af4; /* Bleu de base */
-}
   
 /* Style spécifique pour les boutons dans le formulaire */
-form button {
+#main button {
 	margin : 20px auto;
 	display: block;
 	background-color: #4e8af4; /* Bleu de base */
 	background-image: linear-gradient(to bottom, #00395d, #599ef6); /* Dégradé de bleu */
 	border-radius: 20px; /* Arrondi */
 	color: white;
+	border:none;
 	width: 50%;
 	font-family: 'Jost', sans-serif;
 	font-weight: bolder;
@@ -161,7 +209,7 @@ form button {
 	padding:15px;
 }
   
-form button:hover{
+#main button:hover{
     margin : 20px auto;
     display: block;
     background-color: black; /* Bleu de base */
@@ -183,22 +231,76 @@ form {
 
 }
 
-button {
-  background-color: #00395d; 
-  background-image: linear-gradient(to bottom, #175099, #00395d); 
-  color: white;
-  padding: 10px 20px;
-  border:none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: bold;
-  font-size: 16px; 
+#deco button {
+	margin : 20px auto;
+	display: block;
+	background-color: red;
+	background-image: linear-gradient(to bottom, #910404, #ff0000);
+	border-radius: 20px; /* Arrondi */
+	color: white;
+	border:none;
+	width: 50%;
+	font-family: 'Jost', sans-serif;
+	font-weight: bolder;
+	font-size: 18px;
+	padding:15px;
+}
+  
+#deco button:hover{
+    margin : 20px auto;
+    display: block;
+    background-color: black; /* Bleu de base */
+    background-image: linear-gradient(to bottom, #3d4a5a, #000000);
+    border-radius: 20px; /* Arrondi */
+    width: 50%;
+    font-family: 'Jost', sans-serif;
+    font-weight: bolder;
+    font-size: 18px;
 }
 
-button:hover {
-  color: #4e8af4;
+#logout_bouton {
+    background-color: red;
+    background-image: linear-gradient(to bottom, #910404, #ff0000);
+    color: white;
+}
+
+.logout_bouton {
+    background-color: black;
+    background-image: linear-gradient(to bottom, #910404, #ff0000);
+    color: white;
 }
 
 
+.logout_bouton a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Style pour le menu déroulant */
+select {
+    background-color: white; /* Couleur de fond blanche */
+    color: #00395d; /* Couleur du texte bleu, pour correspondre aux boutons */
+    padding: 10px 20px; /* Espacement intérieur pour correspondre aux boutons */
+    border: none; /* Aucune bordure */
+    border-radius: 5px; /* Bordures arrondies pour correspondre aux boutons */
+    font-weight: bold; /* Texte en gras */
+    font-size: 16px; /* Taille de la police pour correspondre aux boutons */
+    cursor: pointer; /* Change le curseur en main pour indiquer la sélection */
+    display: inline-block; /* Affichage en ligne pour permettre l'alignement avec d'autres éléments */
+    width: auto; /* Largeur automatique basée sur le contenu */
+    margin: 20px auto; /* Marges pour positionner le menu déroulant */
+    text-align: center; /* Centrer le texte à l'intérieur */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre subtile pour correspondre aux boutons */
+}
+
+select:hover {
+    background-color: #f4f4f4; /* Légère variation de couleur au survol */
+}
+
+/* Assurez-vous que les options sont bien visibles dans le menu déroulant */
+option {
+    padding: 10px; /* Espacement pour faciliter la lecture */
+    background: #fff; /* Couleur de fond blanche pour les options */
+    color: #333; /* Couleur de texte sombre pour un bon contraste */
+}
 

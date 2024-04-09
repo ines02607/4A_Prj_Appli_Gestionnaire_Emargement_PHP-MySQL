@@ -1,32 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700;800;900&display=swap');
+
+
 /* Reset des styles par défaut du navigateur */
 body, h1, h2, p, ul, li, button {
     margin: 0;
     padding: 0;
 }
 
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Jost', sans-serif;
     background-color: #f4f4f4;
 }
 
 .header {
     background-color: #00395d; /* Bleu de base */
     background-image: linear-gradient(to bottom, #175099, #00395d); /* Dégradé de bleu */
-    padding-top: 0px;
+    padding-top: 20px;
     padding-left: 20px;
-    padding-bottom: 0px;
-    color: #fff;
+    padding-bottom: 20px;
+    position: -webkit-sticky; /* Pour une compatibilité avec les navigateurs WebKit */
+    position: sticky;
+    top: 0; /* Définit l'en-tête en haut de la fenêtre visible */
+    z-index: 1000;
+}
+
+.main {
+    width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #d9d9d9;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2{
+    text-align: center;
+}
+
+.logo{
+    width: 40%;
+}
+#pages{
+    align-items: right;
+    display: flex;
+    width: 60%;
+    text-align: center;
+}
+#pages button{
+    width:100%;
+}
+#profil{
+    margin-right: 0px;
+    background-color:transparent;
+    color:transparent;
+    border:none;
     
+}
+
+.bas_page button {
+	margin : 20px auto;
+	display: block;
+	background-color: #4e8af4;
+	background-image: linear-gradient(to bottom, #00395d, #599ef6);
+	border-radius: 20px;
+	color: white;
+	border:none;
+	width: 30%;
+	font-family: 'Jost', sans-serif;
+	font-weight: bolder;
+	font-size: 18px;
+	padding:15px;
+}
+  
+.bas_page button:hover{
+    margin : 20px auto;
+    display: block;
+    background-color: black;
+    color:white;
+    background-image: linear-gradient(to bottom, #3d4a5a, #000000);
+    border-radius: 20px;
+    width: 30%;
+    font-family: 'Jost', sans-serif;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.title{
+  font-family: 'Jost', sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom:20px;
+  white-space: nowrap;
+}
+
+#trash{
+    margin:0px;
+    margin-left: 5px;
+    display : inline-block;
+}
+
+#edit{
+    margin: 0px;
+    margin-left: 5px;
+    display : inline-block;
+}
+  
+
+.menu {
+    display: flex;
+    align-items: center;
 }
 
 .logo img {
     max-width: 100%;
     height: auto;
-}
-
-.menu {
-    display: flex;
-    align-items: center;
 }
 
 ul {
@@ -46,61 +137,199 @@ ul li a {
 }
 
 .main{
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 80%;
+    margin: 70px auto;
     padding: 20px;
-    background-color: #d9d9d9;
+    background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form button {
-    background-color: #00395d; /* Bleu de base */
-    background-image: linear-gradient(to bottom, #175099, #00395d); /* Dégradé de bleu */
-    color: white;
-    padding: 10px 20px;
-    border:none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 16px;
+    
 }
 
 form {
     margin-top: 0px;
 }
 
-button {
-    background-color: #4679df;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+td, th {
+    padding: 10px;
+    border: 1px solid #80b8d4;
+}
+  
+/* Style des cellules au survol */
+tr:hover {
+    background-color: #f2f2f2; /* Couleur de fond au survol */
+}
+  
+thead {
+    background-color: #00395d; /* Bleu de base */
+    background-image: linear-gradient(to bottom, #175099, #00395d); /* Dégradé de bleu */
+    color: #fff; /* Couleur du texte de la première ligne */
+    padding:50px;
 }
 
-button:hover {
-    background-color: #0a3998;
+
+thead tr {
+    background-color: #00395d; /* Bleu de base */
+    background-image: linear-gradient(to bottom, #175099, #00395d); /* Dégradé de bleu */
+    color: #fff; /* Couleur du texte de la première ligne */
+    padding:50px;
 }
 
 .formDelete{
     margin-top: 0px;
 }
 
+.barre_menu {
+  margin-left: auto;
+  margin-right: 250px;
+}
+
+.barre_menu_boutons button {
+    margin-right: 150px;
+    white-space: nowrap;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 24px;
+    padding-top:10%;
+    font-family: 'Jost', sans-serif;
+}
+
+.barre_menu_boutons button:hover {
+    margin-right: 150px;
+    white-space: nowrap;
+    background-color: transparent;
+    color: #cfe0fc;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+    padding-top:10%;
+}
+
+.barre_menu_boutons button {
+    padding-top:15px;
+}
+
+.barre_menu_boutons button:hover {
+    padding-top:15px;
+}
+
+.barre_menu {
+  margin-left: auto;
+  margin-right: 500px;
+  font-family: 'Jost', sans-serif;
+  font-weight:bolder;
+}
+
+.barre_menu2 {
+  margin-left: auto;
+  margin-right: 400px;
+}
+
+.action{
+    position: relative;
+    display: inline-block;
+}
+
 /* Style spécifique pour les boutons dans le formulaire */
+.action button {
+	padding : 10px;
+	border-radius: 100px; 
+	border:none;
+}
+
+.action button:hover {
+	padding : 10px;
+	border:none;
+	border-radius: 100px; 
+	background-color: black;
+   	background-image: linear-gradient(to bottom, #000000, #000000);
+}
+
+#edit{
+	background-color: #4e8af4;
+	background-image: linear-gradient(to bottom, #00395d, #599ef6);
+}
+#edit:hover{
+	background-color: black;
+   	background-image: linear-gradient(to bottom, #000000, #000000);
+}
+
+#edit::after {
+    content: "Modifier";
+    font-family: 'Jost', sans-serif;
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background-color:white;
+    font-size:12px;
+    font-weight:bold;
+}
+
+#edit:hover::after {
+    opacity: 1;
+}
+
 
 .delete{
-    background-color: white; 
+	background-color: red; /* Bleu de base */
+   	background-image: linear-gradient(to bottom, #910404, #ff0000); /* Dégradé de bleu */
+}
+
+.delete{
     border: none; 
     padding: 0;
 }
 
+.delete::after {
+    content: "Supprimer";
+    font-family: 'Jost', sans-serif;
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background-color:white;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.delete:hover::after {
+    opacity: 1;
+}
+
+
+.update{
+    background-color: white; 
+    border: none; 
+    padding: 0;
+}
+.formDelete{
+    margin-top: 0px;
+}
+
 
 /* Ajoutez des styles CSS pour les différentes couleurs */
-.Lundi { background-color: #ffcccc; } /* Lundi */
-.Mardi { background-color: #ccffcc; } /* Mardi */
-.Mercredi { background-color: #ccccff; } /* Mercredi */
-.Jeudi { background-color: #ffffcc; } /* Jeudi */
-.Vendredi { background-color: #ffccff; } /* Vendredi */
+.Lundi { background-color: #AFEEEE; } /* Lundi */
+.Mardi { background-color: #87CEEB; } /* Mardi */
+.Mercredi { background-color: #E1F5FE; } /* Mercredi */
+.Jeudi { background-color: #BFEFFF; } /* Jeudi */
+.Vendredi { background-color: #B0E0E6; } /* Vendredi */
 .Samedi { background-color: #ccffff; } /* Samedi */
 .Dimanche { background-color: #f0f0f0; } /* Dimanche */

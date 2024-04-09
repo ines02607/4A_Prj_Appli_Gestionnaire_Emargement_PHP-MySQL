@@ -7,70 +7,6 @@
     <base href="<?= $web_root ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/student_list.css" rel="stylesheet" type="text/css"/>
-    <style>
-        .main{
-            background-color: #d9d9d9;
-        }
-        h2{
-            text-align: center;
-        }
-        table{
-            margin: auto;
-        }
-        .logo{
-            width: 40%;
-        }
-        #pages{
-            align-items: right;
-            display: flex;
-            width: 60%;
-            text-align: center;
-        }
-        #pages button{
-            width:100%;
-        }
-        #profil{
-            margin-right: 0px;
-        }
-
-        form button {
-            margin : 20px auto;
-            display: block;
-            background-color: #4e8af4;
-            background-image: linear-gradient(to bottom, #00395d, #599ef6); 
-            border-radius: 20px; 
-            color: white;
-            width: 70%;
-            font-family: 'Jost', sans-serif;
-            font-weight: bolder;
-            font-size: 18px;
-            padding:15px;
-        }
-
-        form button:hover{
-            margin : 20px auto;
-            display: block;
-            background-color: black; 
-            background-image: linear-gradient(to bottom, #3d4a5a, #000000);
-            border-radius: 20px; 
-            width: 50%;
-            font-family: 'Jost', sans-serif;
-            font-weight: bolder;
-            font-size: 18px;
-
-        }
-        #trash{
-            margin:0px;
-            margin-left: 5px;
-            display : inline-block;
-        }
-        #edit{
-            margin: 0px;
-            margin-left: 5px;
-            display : inline-block;
-        }
-  
-    </style>
 </head>
 <body>
     <div class="header">
@@ -78,46 +14,51 @@
             <div class="menu">
                 <!-- Chemin relatif vers le dossier "ressources/images" -->
                 <div class="logo"><img src="ressources\images\logo_polytech_3.png"></div>
+                <div class="barre_menu">
                 <ul id="pages">
                     <li>
-                        <form action="main/go_home" method="post">  
-                            <button type="submit" name="accueil">Accueil</button>
+                        <form class="barre_menu_boutons" action="main/go_home" method="post">  
+                            <button type="submit" name="accueil">ACCUEIL</button>
                         </form>
                     </li>
                     <li>
-                        <form action="main/go_sous_promotion" method="post">
+                        <form class="barre_menu_boutons" action="main/go_sous_promotion" method="post">
                             <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
-                            <button type="submit"name="promotions">Sous promotions</button>
+                            <button type="submit"name="promotions">SOUS-PROMOTIONS</button>
                         </form>
                     </li>
                     <li>
-                        <form action="main/go_services" method="post">
+                        <form class="barre_menu_boutons" action="main/go_services" method="post">
                             <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
-                            <button type="submit" name="services">Services</button>
-                        </form>
-                    </li> 
-                    <li>
-                        <form action="main/go_students_list" method="post">  
-                            <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
-                            <button type="submit" name="etudiants">Liste des étudiants</button>
+                            <button type="submit" name="services">SERVICES</button>
                         </form>
                     </li>    
                     <li>
                         <form action="main/actions_initiales" method="post">
-                            <button id="profil" type="submit" name="initiales"> <!-- Ajout du name="initiales" --><?= strtoupper(substr($user->Nom_secretaire, 0, 1) . substr($user->Prenom_secretaire, 0, 1)) ?></button>
+                            <button id="profil" type="submit" name="initiales"><img src="ressources\images\icone_compte.png">
+                            <!-- Ajout du name="initiales" <?= strtoupper(substr($user->Nom_secretaire, 0, 1) . substr($user->Prenom_secretaire, 0, 1)) ?>-->
+                            </button>
                         </form>
                     </li>   
                 </ul>
+                </div>
             </div>
     </div>
 
+    <div class="title">Liste des étudiants - <?= $subpromotion ?></div>
     <div class="main">
-        <h2>Liste des étudiants - <?= $subpromotion ?></h2>
+        <div class="bas_page">
+        <form method="POST" action="main/add_student_form">
+            <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
+            <button type="submit" name="add_student" value="add">Ajouter un nouvel étudiant</button>
+        </form>
+        </div>
+        
         <br>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
-                    <th>Nb</th>
+                    <th>N°</th>
                     <th style="width: 10%;">Numéro étudiant</th>
                     <th style="width: 20%;">Nom</th>
                     <th style="width: 20%;">Prénom</th>
@@ -147,7 +88,7 @@
                             <form class="action" method="POST" action="main/action">
                                 <input type="hidden" name="student_num" value="<?= $student->Numero_etu ?>">
                                 <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
-                                <button id="edit" class="delete" type="submit" name="action" value="update"><img src="ressources\images\edit_3.png" style="width: 20px; height: 20px;">
+                                <button id="edit" type="submit" name="action" value="update"><img src="ressources\images\edit_3.png" style="width: 20px; height: 20px;">
                                 
                             </form>
                         </td>
@@ -158,15 +99,12 @@
             </tbody>
         </table>
         <br>
-        <form method="POST" action="main/add_student_form">
-            <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
-            <button type="submit" name="add_student" value="add">Ajouter un nouvel étudiant</button>
-        </form>
+        <div class="bas_page">
         <form method="POST" action="main/choose_service">
             <input type="hidden" name="subpromotion" value="<?= $subpromotion ?>">
             <button type="submit" name="service" value="planning">Consulter l'emploi du temps</button>
         </form>
-
+        </div>
     </div>
 </body>
 </html>

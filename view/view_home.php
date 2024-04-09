@@ -16,10 +16,10 @@
                 <div class="logo"><img src="ressources\images\logo_polytech_3.png"></div>
                 <div class="barre_menu">
 		        <ul id="pages">
-		            <!--<li><form><button name="accueil">Accueil</button></form></li>-->
-		            <li>
-		                <form action="main/actions_initiales" method="post">
-		                    <button id="profil" type="submit" name="initiales"><img src="ressources\images\icone_compte.png"><?= strtoupper(substr($user->Nom_secretaire, 0, 1) . substr($user->Prenom_secretaire, 0, 1)) ?></button>
+		                <form class="profil" action="main/actions_initiales" method="post">
+		                    <button id="profil" type="submit" name="initiales"><img src="ressources\images\icone_compte.png"></button>
+		                <!--<?= strtoupper(substr($user->Nom_secretaire, 0, 1) . substr($user->Prenom_secretaire, 0, 1)) ?>--> 
+		                 
 		                </form>
 		            </li>
 		        </ul>
@@ -38,9 +38,9 @@
 		<!-- Phrase et choix de promotion -->
 		<p>Veuillez choisir une promotion :</p>
 		<form action="main/choose_promotion" method="post" >
-		    <button type="submit" name="promotion" value="3A">3A</button>
-		    <button type="submit" name="promotion" value="4A">4A</button>
-		    <button type="submit" name="promotion" value="5A">5A</button>
+		    <button class="bouton" type="submit" name="promotion" value="3A">3A</button>
+		    <button class="bouton" type="submit" name="promotion" value="4A">4A</button>
+		    <button class="bouton" type="submit" name="promotion" value="5A">5A</button>
 		</form>
         </div>
     </div>

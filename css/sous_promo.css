@@ -6,6 +6,30 @@ body, h1, h2, p, ul, li, button {
   padding: 0;
 }
 
+h2{
+        text-align: center;
+    }
+table{
+        margin: auto;
+    }
+.logo{
+        width: 40%;
+    }
+#pages{
+        align-items: right;
+        display: flex;
+        width: 60%;
+        text-align: center;
+    }
+    
+#pages button{
+        width:100%;
+    }
+    
+#profil{
+        margin-right: 0px;
+    }
+
 body {
   font-family: 'Jost', sans-serif;
   background-color: #f4f4f4;
@@ -48,7 +72,7 @@ ul li a {
 
 .main {
   width: 50%;
-  margin: 50px auto;
+  margin: 200px auto;
   padding: 20px;
   background-color: #d9d9d9;
   border-radius: 8px;
@@ -82,49 +106,44 @@ form {
 }
 
 button {
-    background-color: #00395d; /* Bleu de base */
-    background-image: linear-gradient(to bottom, #175099, #00395d); /* Dégradé de bleu */
+    margin-right: 150px;
+    white-space: nowrap;
+    background-color: transparent;
     color: white;
-    padding: 10px 20px;
-    border:none;
-    border-radius: 5px;
+    border: none;
+    border-radius: 50px;
     cursor: pointer;
     display: inline-block;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  button:hover {
-    color: #4e8af4; /* Bleu de base */
-  }
-  
-  /* Style spécifique pour les boutons dans le formulaire */
-  form button {
-    margin : 20px auto;
-    display: block;
-    background-color: #4e8af4; /* Bleu de base */
-    background-image: linear-gradient(to bottom, #00395d, #599ef6); /* Dégradé de bleu */
-    border-radius: 20px; /* Arrondi */
-    color: white;
-    width: 50%;
-    font-family: 'Jost', sans-serif;
     font-weight: bolder;
-    font-size: 18px;
-    padding:15px;
-  }
-  
-  form button:hover{
-    margin : 20px auto;
-    display: block;
-    background-color: black; /* Bleu de base */
-    background-image: linear-gradient(to bottom, #3d4a5a, #000000);
-    border-radius: 20px; /* Arrondi */
-    width: 50%;
     font-family: 'Jost', sans-serif;
+    font-size: 24px;
+    padding-top:10%;
+}
+
+button:hover {
+    margin-right: 150px;
+    white-space: nowrap;
+    background-color: transparent;
+    color: #cfe0fc;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
     font-weight: bolder;
-    font-size: 18px;
-  
-  }
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+    padding-top:10%;
+}
+
+.barre_menu_boutons button {
+    padding-top:15px;
+    font-family: 'Jost', sans-serif;
+}
+
+.barre_menu_boutons button:hover {
+    padding-top:15px;
+    font-family: 'Jost', sans-serif;
+}
 
 form {
   padding: 10px;
@@ -136,52 +155,43 @@ form {
 
 }
 
-button {
+
+/* Style spécifique pour les boutons dans le formulaire */
+.main button {
+	margin : 20px auto;
+	display: block;
+	background-color: #4e8af4; /* Bleu de base */
+	background-image: linear-gradient(to bottom, #00395d, #599ef6); /* Dégradé de bleu */
+	border-radius: 20px; /* Arrondi */
+	color: white;
+	border:none;
+	width: 50%;
+	font-family: 'Jost', sans-serif;
+	font-weight: bolder;
+	font-size: 18px;
+	padding:15px;
+}
   
-  background-color: #00395d; 
-  background-image: linear-gradient(to bottom, #175099, #00395d); 
-  color: white;
-  padding: 10px 20px;
-  border:none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: bold;
-  font-size: 16px;
-  
+.main button:hover{
+    margin : 20px auto;
+    display: block;
+    background-color: black; /* Bleu de base */
+    color:white;
+    background-image: linear-gradient(to bottom, #3d4a5a, #000000);
+    border-radius: 20px; /* Arrondi */
+    width: 50%;
+    font-family: 'Jost', sans-serif;
+    font-weight: bolder;
+    font-size: 18px;
 }
 
-button:hover {
-  color: #4e8af4;
+.barre_menu {
+  margin-left: auto;
+  margin-right: 250px;
 }
 
-
-
-form button {
-  margin : 20px auto;
-  display: block;
-  background-color: #4e8af4;
-  background-image: linear-gradient(to bottom, #00395d, #599ef6); 
-  border-radius: 20px; 
-  color: white;
-  width: 70%;
-  font-family: 'Jost', sans-serif;
-  font-weight: bolder;
-  font-size: 18px;
-  padding:15px;
+.barre_menu2 {
+  margin-left: auto;
+  margin-right: 400px;
 }
-
-form button:hover{
-  margin : 20px auto;
-  display: block;
-  background-color: black; 
-  background-image: linear-gradient(to bottom, #3d4a5a, #000000);
-  border-radius: 20px; 
-  width: 50%;
-  font-family: 'Jost', sans-serif;
-  font-weight: bolder;
-  font-size: 18px;
-
-}
-
 

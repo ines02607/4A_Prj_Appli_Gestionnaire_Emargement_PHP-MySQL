@@ -27,6 +27,7 @@ class ControllerMain extends Controller {
         }
     }
  
+    /*La fonction qui permet à l'utilisateur de se connecter à son compte */
     public function login() : void {
         
             $Identifiant = "";
@@ -51,6 +52,8 @@ class ControllerMain extends Controller {
     }
 
     
+    /* Cette permet de choisir la promotion dans la page d'accueil.
+    Une fois la promotion choisie, elle renvoie vers la page de sous promotion correxpondnates */
 
     public function choose_promotion(){
         if (isset($_POST['promotion'])){
@@ -68,6 +71,10 @@ class ControllerMain extends Controller {
         }
     }
 
+
+    /*Cette fonction permet de choisir une sous promotion dans la page des sous promotions.
+    Une fois la sous promotion choisie, elle renvoie vers la page de services */
+
     public function choose_subpromotion(){
         $user = $this->get_user_or_redirect();
         if (isset($_POST['subpromotion'])){
@@ -76,6 +83,9 @@ class ControllerMain extends Controller {
         
         }
     }
+
+    /*Cette fonction calcule la date du lundi du début de semaine et la date du vendredi de fin de semaine selon la date actuelle 
+    Elle retourne un tableau contenant ces deux dates*/
 
     function calculate_dates() {
         // Récupérer la date actuelle
@@ -103,7 +113,48 @@ class ControllerMain extends Controller {
         // Retourner les dates calculées
         return array('firstDate' => $firstDate, 'lastDate' => $lastDate);
     }
+    
+public function get_planning_json($subpromotion) {
+    // Utiliser la fonction existante pour obtenir les événements
+    $evenements = $this->get_planning($subpromotion);
+    
+    // Convertir les événements en format JSON
+    $json_events = json_encode($evenements);
+    
+    // Déchiffrer les dates et heures dans les événements
+    $json_events_decrypted = array_map(function($event) {
+        $event['start'] = $this->decrypt_datetime($event['start']);
+        $event['end'] = $this->decrypt_datetime($event['end']);
+        return $event;
+    }, $evenements);
+    
+    // Convertir les événements déchiffrés en format JSON
+    $json_events_decrypted = json_encode($json_events_decrypted);
+    
+    // Générer le nom du fichier JSON spécifique à la promotion
+    $json_file_name = strtolower(str_replace(' ', '_', $subpromotion)) . '_planning.json';
+    
+    $database_folder = 'database/';
+    
+    // Chemin complet vers le fichier JSON dans le dossier "database"
+    $json_file_path = $database_folder . $json_file_name;
+    
+    // Enregistrer le JSON dans le fichier spécifique à la promotion
+    file_put_contents($json_file_path, $json_events_decrypted);
+    
+    // Retourner le chemin du fichier JSON spécifique à la promotion
+    return $json_file_path;
+}
 
+public function decrypt_datetime($datetime_str) {
+    $datetime = DateTime::createFromFormat('Ymd\THis\Z', $datetime_str, new DateTimeZone('Europe/Paris'));
+    $datetime->modify('+1 hour');
+    return $datetime->format('Y-m-d\TH:i:s');
+}
+
+    /*Cette fonction récupère tous les cours de la promotion, passée en paramètres,
+    à partir du service ADE de l'ENT, selon les dates calculées par la fonction get_planning
+    Et les retourne sous forme d'un tableau  */
     
     function get_planning($subpromotion) {
 
@@ -115,7 +166,7 @@ class ControllerMain extends Controller {
         }
         if($subpromotion == "3A FISE"){ 
             $url='https://ade-web-consult.univ-amu.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?projectId=8&resources=46049&calType=ical&firstDate='. $dates['firstDate'] . '&lastDate=' . $dates['lastDate'];
-            //$url='https://ade-web-consult.univ-amu.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?projectId=8&resources=46049&calType=ical&firstDate=2024-02-12&lastDate=2024-02-16';
+           
         }
         if($subpromotion == "4A"){
             $url ='https://ade-web-consult.univ-amu.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?projectId=8&resources=3929&calType=ical&firstDate=' . $dates['firstDate'] . '&lastDate=' . $dates['lastDate'];
@@ -127,8 +178,7 @@ class ControllerMain extends Controller {
             $url='https://ade-web-consult.univ-amu.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?projectId=8&resources=3954&calType=ical&firstDate=' . $dates['firstDate'] . '&lastDate=' . $dates['lastDate'];
         }
 
-        // Utiliser les dates calculées pour construire l'URL dynamique
-        //$url = 'https://ade-web-consult.univ-amu.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?projectId=8&resources=3929&calType=ical&firstDate=' . $dates['firstDate'] . '&lastDate=' . $dates['lastDate'];
+        
         
         // Télécharger le fichier ICalendar
         $icalData = file_get_contents($url);
@@ -158,8 +208,7 @@ class ControllerMain extends Controller {
                 // Ajoutez d'autres propriétés si nécessaire
             ];
         }
-        // Afficher les événements
-        //print_r($evenements);
+       
         // Trier les événements par date de début
         usort($evenements, function($a, $b) {
             return strtotime($a['start']) - strtotime($b['start']);
@@ -169,6 +218,8 @@ class ControllerMain extends Controller {
     }
     
 
+    /*Cette fonction permet de choisir un service de la page des services.
+    Une fois le service choisit, elle renvoie vers la page du service choisi  */
 
     public function choose_service(){
         $user = $this->get_user_or_redirect();
@@ -189,13 +240,18 @@ class ControllerMain extends Controller {
         }
     }
   
+    /*Cette fonction permet de générer un pdf prérempli avec la sous promotion, ses étudiants et la date de génération 
+    Et ouvre ce dernier dans le navigateur */
     public function generate_pdf() {
+    	ob_start();
+    	header('Content-Type: text/html; charset=UTF-8');
         // Récupérer les données des étudiants
         if (isset($_POST['subpromotion']) && isset($_POST['generation'])) {
             $subpromotion = $_POST['subpromotion'];
     
             // Récupérer les données des étudiants
             $students = Student::get_students_of_subpromotion($subpromotion);
+            $summary = isset($_POST['summary']) ? $_POST['summary'] : '';
     
             // Utiliser la bibliothèque FPDF pour créer un nouveau document PDF
             $pdf = new FPDF();
@@ -238,7 +294,7 @@ class ControllerMain extends Controller {
             $pdf->SetFillColor(200, 220, 255); // Couleur de fond pour les en-têtes
             $pdf->SetTextColor(0); // Couleur de texte pour les en-têtes
             $pdf->Cell(8, 10, utf8_decode('N°'), 1, 0, 'C', true);
-            //$pdf->Cell(20, 10, utf8_decode('Numéro'), 1, 0, 'C', true);
+            
             $pdf->Cell(50, 10, 'Nom', 1, 0, 'C', true);
             $pdf->Cell(30, 10, utf8_decode('Prénom'), 1, 0, 'C', true);
             $pdf->Cell(30, 10, 'Signature', 1, 0, 'C', true);
@@ -261,20 +317,32 @@ class ControllerMain extends Controller {
             //Ajouter les lignes supplémentaires en bas du tableau
             $pdf->Ln(5); // Saut de ligne
             $pdf->SetFont('Arial', 'B', 10);
-            $pdf->Cell(0, 10, 'Cours de: ...................................................                                                                         Signature', 0, 1);
-            $pdf->Cell(0, 10, 'Enseignant(e) : ..........................................', 0, 1);
+	    $pdf->Cell(0, 10, 'Cours de : ' . ($summary != '' ? utf8_encode($summary) : '...................................................'), 0, 1);
+
+            $pdf->Cell(0, 10, 'Enseignant(e) : ..........................................          Signature :', 0, 1);
             // Sortie du document PDF dans le navigateur
-            $pdf->Output('liste.pdf', 'I');
+            ob_end_clean(); 
+            $dateDuJour = date('Y-m-d');
+            $nomFichier = 'Emargement_'.$subpromotion . '_' . $dateDuJour . '.pdf';
+            
+            $pdf->Output($nomFichier, 'D');
         }
     }
     
+    /*Cette fonction permet de renvoyer vers la page qui affiche les options "profil" et "déconnexion"
+    lorsqu'on clique sur les initiales de l'utilisateur */
+
     public function actions_initiales(){
         $user = $this->get_user_or_redirect();
         if (isset($_POST['initiales'])){
             (new View("actions_initiales"))->show(["user" => $user]);
         }
     }
-    
+
+    /*Cette fonction permet de choisir un service 
+    Et renvoie vers la page profil si l'option "profil" a été choisie 
+    Et renvoie vers la page de connexion si l'option" Déconnexion */
+
     public function choose_actions_initiales(){
         if (isset($_POST['actions_initiales'])){
             $user = $this->get_user_or_redirect();
@@ -289,6 +357,7 @@ class ControllerMain extends Controller {
         }
     }
 
+    /*Cette focntion renvoie vers la page de modifiaction de mot de passe si l'action "modifier le profil" a été choisie */
     public function update_profil(){
         if (isset($_POST['update_profil'])){
             $update_profil = $_POST['update_profil']; 
@@ -301,6 +370,9 @@ class ControllerMain extends Controller {
     }
             
     
+    /*Cette focntion controle l'action de mise à jour du mot de passe
+    Si la modifiaction du modification est réussie, elle renvoie vers la page de connexion pour renseigner le nouveau mot de passe
+    Sinon affiche les ereurs survenues*/
 
     public function update_password() : void {
         $user = $this->get_user_or_redirect();
@@ -323,34 +395,18 @@ class ControllerMain extends Controller {
             }
         }
     }
-    
-    public function delete_student() {
-        // Vérifier si l'utilisateur est connecté
-        $user = $this->get_user_or_redirect();
-    
-        // Vérifier si l'action est correcte
-        if (isset($_POST['action'])  &&  $_POST['action'] == 'delete') {
-            // Vérifier si l'ID de l'étudiant à supprimer est défini
-            if (isset($_POST['student_num'])) {
-                $student_num = Tools::sanitize($_POST['student_num']);
-                $subpromotion = Tools::sanitize($_POST['subpromotion']);
-                // Supprimer l'étudiant
-                Student::delete_student_by_num($student_num);
-                $students = Student::get_students_of_subpromotion($subpromotion);
-                // Afficher une alerte JavaScript pour indiquer que l'étudiant a été supprimé
-                echo '<script type="text/javascript"> window.onload = function () { alert("L\'étudiant a été supprimé."); } </script>';
-                // Rediriger vers la page de liste des étudiants 
-                (new View("students_list"))->show(["user" => $user,"subpromotion" => $subpromotion,"students" => $students ]);
 
-            }
-        }
-    }
-
+    /*Cette fonction renvoie vers la page contenant le formulaire d'ajout d'étudiant */
     public function add_student_form(){
         $user = $this->get_user_or_redirect();
         $subpromotion = $_POST['subpromotion'];
         (new View("add_student"))->show(["user" => $user, "subpromotion" => $subpromotion]);
     }
+
+
+    /*Cette fonction récupère les informations renseignées à partir du formulaire d'ajout d'étudiant et les traite
+    S'il n'y a pas eu d'erreur, elle renvoie vers la liste, des étudiants de la promotions, mise à jour
+    Sinon affiche les ereeurs survenues */
 
     public function add_student() {
         $user = $this->get_user_or_redirect();
@@ -379,6 +435,52 @@ class ControllerMain extends Controller {
         }
     }
 
+    /*Cette focntion permet d'appeler la focntion correspondante à l'action choisie,
+     à effectuer sur un étudiant(midification ou supression) */
+
+    public function action(){
+        if(isset($_POST['action'])){
+            $value =$_POST['action'];
+            
+            if($value == "delete"){
+                $this->delete_student();
+            }
+            if($value == "update"){
+                $this->go_to_update_student();
+            }
+
+        }
+    }
+
+    /*Cette fonction controle l'action de suppression d'un étudiant, 
+    apès la supression, elle renvoie vers la liste de la promo mise à jour */
+
+    public function delete_student() {
+        // Vérifier si l'utilisateur est connecté
+        $user = $this->get_user_or_redirect();
+    
+        // Vérifier si l'action est correcte
+        if (isset($_POST['action'])  &&  $_POST['action'] == 'delete') {
+            // Vérifier si l'ID de l'étudiant à supprimer est défini
+            if (isset($_POST['student_num'])) {
+                $student_num = Tools::sanitize($_POST['student_num']);
+                $subpromotion = Tools::sanitize($_POST['subpromotion']);
+                // Supprimer l'étudiant
+                Student::delete_student_by_num($student_num);
+                $students = Student::get_students_of_subpromotion($subpromotion);
+                // Afficher une alerte JavaScript pour indiquer que l'étudiant a été supprimé
+                echo '<script type="text/javascript"> window.onload = function () { alert("L\'étudiant a été supprimé."); } </script>';
+                // Rediriger vers la page de liste des étudiants 
+                (new View("students_list"))->show(["user" => $user,"subpromotion" => $subpromotion,"students" => $students ]);
+
+            }
+        }
+    }
+
+
+    /*Cette fonction controle l'action de mis à jour du profil d'un étudiant, 
+    apès la modification, elle renvoie vers la liste de la promo mise à jour */
+
     public function update_student() : void {
         $user = $this->get_user_or_redirect();
     
@@ -400,21 +502,12 @@ class ControllerMain extends Controller {
         }
     }
 
-    public function action(){
-        if(isset($_POST['action'])){
-            $value =$_POST['action'];
-            
-            if($value == "delete"){
-                $this->delete_student();
-            }
-            if($value == "update"){
-                $this->go_to_update_student();
-            }
-
-        }
-    }
     
-    /************************ Redirections *********************************************************************/
+    /*************************************************************************************************************************/
+    /**********Toutes les fonctions suivantes sont utilisées pour les redirections dans la barre de navigation****************/
+    /*************************************************************************************************************************/
+    /*************************************************************************************************************************/
+
     public function go_home(){
         $user = $this->get_user_or_redirect();
         (new View("home"))->show(["user" => $user]);
@@ -430,7 +523,6 @@ class ControllerMain extends Controller {
         $user = $this->get_user_or_redirect();
         (new View("sous_promo_5A"))->show(["user" => $user]);
         
-        //(new View("services"))->show(["user" => $user,"subpromotion" => $promotion]);
     }
 
     public function go_services(){

@@ -3,7 +3,7 @@
 require_once "framework/Model.php";
 
 
-
+// Définition de la classe Student qui étend la classe Model
 class Student extends Model {
 
     // constructeur d'un étudiant
@@ -19,7 +19,7 @@ class Student extends Model {
         ){  
 
     }
-    // recupre le user selon Id_secretaire
+    /*Récupère un étudiant par son numéro étudiant */
     public static function get_student_by_num(string $Numero_etu) : Student|false {
         $query = self::execute("SELECT * FROM Etudiant where Numero_etu = :Numero_etu", ["Numero_etu"=>$Numero_etu]);
         $data = $query->fetch(); 
@@ -30,6 +30,7 @@ class Student extends Model {
         }
     }
 
+    /*Récupère un étudiant par son nom */
     public static function get_student_by_nom(string $Nom_etu) : Student|false {
         $query = self::execute("SELECT * FROM Etudiant where Nom_etu = :Nom_etu", ["Nom_etu"=>$Nom_etu]);
         $data = $query->fetch(); 
@@ -40,6 +41,7 @@ class Student extends Model {
         }
     }
 
+    /*Récupère un étudiant par son prénom */ 
     public static function get_student_by_prenom(string $Prenom_etu) : Student|false {
         $query = self::execute("SELECT * FROM Etudiant where Prenom_etu = :Prenom_etu", ["Prenom_etu"=>$Prenom_etu]);
         $data = $query->fetch(); 
@@ -50,10 +52,10 @@ class Student extends Model {
         }
     }
     
-    // recupere tout les etudiant de la subpromotion 
+    /* recupere tout les etudiant de la sous promotion */
 
     public static function get_students_of_subpromotion($subpromotion) : array {
-        $query = self::execute("SELECT * FROM Etudiant where Promo_etu = :Promo_etu", ["Promo_etu"=>$subpromotion]);
+        $query = self::execute("SELECT * FROM Etudiant where Promo_etu = :Promo_etu ORDER BY Nom_etu", ["Promo_etu"=>$subpromotion]);
 
         $data = $query->fetchAll();
 
@@ -65,10 +67,12 @@ class Student extends Model {
         return $results;
     }
 
+    /*Supprime un étudiant par son numéro étudiant */
     public static function delete_student_by_num(string $student_num) {
         self::execute("DELETE FROM Etudiant WHERE Numero_etu = :Numero_etu", ["Numero_etu" => $student_num]);
     }
 
+    /*Ajoute un nouvel étudiant dans les attributs sont passés en paramètre */
     public static function add_student(string $Numero_etu, string $Nom_etu, string $Prenom_etu, string $Signature_etu, string $Heure_arrivee_etu, string $Observation_etu, string $Promo_etu) {
         $errors = [];
 
@@ -112,7 +116,7 @@ class Student extends Model {
     
     
 
-
+    /*Met à jour les informations d'un étudiant dont le numéro est passé en paramètre */
     public function update(string $Numero, string $Observation) : Student {
         $this->Numero_etu = $Numero;
         $this->Observation_etu = $Observation;

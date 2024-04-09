@@ -90,6 +90,7 @@ class User extends Model {
         return $errors ;
     }
 
+    //met à jour le profil de l'utilisateur
     public function update() : User {
         if($this->Id_secretaire!=null){
             self::execute("UPDATE Secretaire SET Mot_de_passe_hache=:Mot_de_passe_hache WHERE Id_secretaire=:Id_secretaire ", 
@@ -101,6 +102,8 @@ class User extends Model {
         return $this ;
     }
 
+    /*Appel la focntion de mise à jour du profil si chacun, des mots de passes passés en paramètres,
+     vérifie les critères spécifiés dans la fonction  */
     public function update_mdp(string $ancienMotDePasse, string $nouveauMotDePasse, string $confirmationMotDePasse) : array {
         $errors = [];
     
